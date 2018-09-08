@@ -24,6 +24,7 @@ namespace WebAppShop
                       "~/Scripts/bootbox.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom/gallery").Include(
+                      "~/Scripts/cropper/cropper.js",
                       "~/Scripts/custom/gallery.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
