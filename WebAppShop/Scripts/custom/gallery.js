@@ -6,7 +6,6 @@
         function init() {
             initUploadImage();
             initButtonsDialog();
-            
 
             function initUploadImage() {
                 $(".uploadimage").on("click", function () {
@@ -38,7 +37,6 @@
                     //alert("click add image");
                 });
             }
-
             function initButtonsDialog() {
                 $("#rotateleft").click(function () {
                     $("#canvas").cropper("rotate", -30);
@@ -47,9 +45,32 @@
                 $("#rotateright").click(function () {
                     $("#canvas").cropper("rotate", 30);
                 });
+
+                $("#saveServer").click(function () {
+
+                    var croppedImage = $("#canvas").cropper('getCroppedCanvas').toDataURL('image/jpg');
+
+                    var div = $("#listUploadImages");
+                    var data = '<div class="col-md-2">';
+                    data += '<div class="thumbnail">';
+                    data += '<i class="fa fa-times fa-2x icon-delete" aria-hide="true" style="display:block"></i>';
+                    data += '<img src="' + croppedImage+'" />';
+                    data += '</div>';
+                    data += '</div>';
+                    div.prepend(data);
+                    //$('#user_img').attr('src', croppedImage);
+
+
+                    $('#exampleModalCenter').modal('toggle');
+
+
+                });
+
+
             }
 
-            
+
+
         }
         //Завантажити зображення в кропер
         function loadImageDialog(fileImage) {
@@ -62,16 +83,15 @@
                 var img = new Image();
                 var bool = true;
                 img.onload = function () {
-
-
                     if (img.width < minImageSize) {
                         bool = false;
                         bootbox.alert("Не підхходить розшиерння < 300");
                     }
                     else {
+                        //Включаємо анімацію загрузки діалога
+                        console.log("being animation");
                         $('#exampleModalCenter').modal('show');
                         $("#exampleModalCenter").on('shown.bs.modal', function () {
-
                             context.canvas.width = img.width;
                             context.canvas.height = img.height;
                             context.drawImage(img, 0, 0);
@@ -89,19 +109,21 @@
                                         this.cropper.setData({ width: minImageSize });
                                     }
                                 }
+                                //minCropBoxWidth: minImageSize,
                                 //rotatable: true
                             });
-
-
+                            //Скриваємо анімацію загрузки форми
+                            console.log("end animation");
                         });
+                        
                     }
 
                 };
-
                 img.src = e.target.result;
             };
             reader.readAsDataURL(fileImage);
         }
+         
 
         function run() {
             init();
