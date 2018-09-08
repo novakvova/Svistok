@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace WebAppShop.Controllers
 {
-    public class GallaryController : Controller
+    public class GalleryController : Controller
     {
         // GET: Gallary
         public ActionResult Index()
