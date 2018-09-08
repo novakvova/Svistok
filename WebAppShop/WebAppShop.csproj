@@ -230,6 +230,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper\cropper.css" />
+    <Content Include="Content\cropper\cropper.min.css" />
     <Content Include="Content\custom\autoCompleteData.css" />
     <Content Include="Content\custom\gallery.css" />
     <Content Include="Content\font-awesome.css" />

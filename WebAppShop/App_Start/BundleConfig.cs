@@ -33,6 +33,7 @@ namespace WebAppShop
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/custom/gallery").Include(
+                      "~/Content/cropper/cropper.css",
                       "~/Content/custom/gallery.css"));
         }
     }
