@@ -17,19 +17,23 @@
                 inputFile.change(function () {
                     if (this.files && this.files[0]) {
                         if (this.files[0].type.match(/^image\//)) {
-                            var dialog;
+                            loadImageDialog(this.files[0]);
                         }
                         else {
-                            alert("Invalid file type");
+                            bootbox.alert("Невірний формат файла");
                         }
                     }
                     else {
-                        alert("Оберіть файл");
+                        bootbox.alert("Оберіть файл");
                     }
                 });
 
                 //alert("click add image");
             });
+        }
+        //Завантажити зображення в кропер
+        function loadImageDialog(fileImage) {
+
         }
 
         function run() {
