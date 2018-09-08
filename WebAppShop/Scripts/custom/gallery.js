@@ -1,35 +1,55 @@
 ﻿$(function () {
     var gallery = function () {
+        //мінімальний розмір зображення для кропера
+        var minImageSize = 300; 
         
         function init() {
-            $(".uploadimage").on("click", function () {
-                var inputFile = $('<input/>')
-                    .attr('type', 'file')
-                    .attr('name', 'chosenImage')
-                    .attr('style', 'display: none;');
+            initUploadImage();
+            initButtonsDialog();
+            
 
-                $('#fileUploadContainer').append(
-                    inputFile
-                );
+            function initUploadImage() {
+                $(".uploadimage").on("click", function () {
+                    var inputFile = $('<input/>')
+                        .attr('type', 'file')
+                        .attr('name', 'chosenImage')
+                        .attr('style', 'display: none;');
 
-                inputFile.click();
+                    $('#fileUploadContainer').append(
+                        inputFile
+                    );
 
-                inputFile.change(function () {
-                    if (this.files && this.files[0]) {
-                        if (this.files[0].type.match(/^image\//)) {
-                            loadImageDialog(this.files[0]);
+                    inputFile.click();
+
+                    inputFile.change(function () {
+                        if (this.files && this.files[0]) {
+                            if (this.files[0].type.match(/^image\//)) {
+                                loadImageDialog(this.files[0]);
+                            }
+                            else {
+                                bootbox.alert("Невірний формат файла");
+                            }
                         }
                         else {
-                            bootbox.alert("Невірний формат файла");
+                            bootbox.alert("Оберіть файл");
                         }
-                    }
-                    else {
-                        bootbox.alert("Оберіть файл");
-                    }
+                    });
+
+                    //alert("click add image");
+                });
+            }
+
+            function initButtonsDialog() {
+                $("#rotateleft").click(function () {
+                    $("#canvas").cropper("rotate", -30);
                 });
 
-                //alert("click add image");
-            });
+                $("#rotateright").click(function () {
+                    $("#canvas").cropper("rotate", 30);
+                });
+            }
+
+            
         }
         //Завантажити зображення в кропер
         function loadImageDialog(fileImage) {
@@ -44,7 +64,7 @@
                 img.onload = function () {
 
 
-                    if (img.width < 300) {
+                    if (img.width < minImageSize) {
                         bool = false;
                         bootbox.alert("Не підхходить розшиерння < 300");
                     }
@@ -58,20 +78,28 @@
                             //Раніше написане не відноситься до кропера
                             var cropper = $canvas.cropper('destroy').cropper({
                                 dragMode: 'move',
-                                aspectRatio: 9 / 9,
+                                aspectRatio: 1 / 1,
                                 viewMode: 1,
                                 preview: '.preview',
-                                rotatable: true
+                                crop: function (e) {
+                                    var data = e.detail;
+                                    var h = Math.round(data.height);
+                                    var w = Math.round(data.width);
+                                    if (w <= minImageSize) {
+                                        this.cropper.setData({ width: minImageSize });
+                                    }
+                                }
+                                //rotatable: true
                             });
 
 
                         });
                     }
 
-                }
+                };
 
                 img.src = e.target.result;
-            }
+            };
             reader.readAsDataURL(fileImage);
         }
 
