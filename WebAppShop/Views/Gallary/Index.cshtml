@@ -1,0 +1,32 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "List images gallery";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div id="fileUploadContainer">
+
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="thumbnail">
+            <i class="fa fa-times fa-2x icon-delete" aria-hide="true"></i>
+            <img src="~/GallaryImages/Plus.png" class="uploadimage" />
+            <div class="caption"><p>Add New Image</p></div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/custom/gallery")
+}
+
+@section styles {
+
+    @Styles.Render("~/Content/custom/gallery")
+}
